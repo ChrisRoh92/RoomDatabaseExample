@@ -145,7 +145,6 @@ fun getAllVocs():List<Voc>?
 
 Method to get the LiveData for the Observer in the Fragment etc.
 ```
-    
 // Getters for LiveData
 fun getLiveVocList():LiveData<List<Voc>> = liveVocList
 ```
