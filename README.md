@@ -10,6 +10,9 @@
     1.3) Create DialogFragment() - **DialogInput.kt**
     
     1.4) Save User Input to MainViewModel with fun **insert(voc:Voc)**
+ <p align="center">   
+<img src="https://github.com/ChrisRoh92/RoomDatabaseExample/blob/Part_4/screenshot/InputDialog.PNG?raw=true" width=400>
+</p>
 
 2) Register Observer on the VocList LiveData and Update VocListAdapter
     
