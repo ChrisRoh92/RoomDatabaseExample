@@ -1,102 +1,12 @@
-# RoomDatabaseExample - Part 2
+# RoomDatabaseExample - Part 3
 
 ## Tasks
-1) Add the Gradle Dependencies
+1) Create a Repository
 
-2) Create the Voc Entity Class
+2) Create the MainViewModel.kt
 
-3) Create the Data Access Object (DAO)
+3) Create the MainViewModelFactory
 
-4) Create the VocDataBase Class
+4) Implement the Methods to interact with Room @ MainViewModel.kt
 ## Solution
-### 1) Add Gradle Dependencies:
-1.1) Add the following code snippets to the **dependencies {...}** Field
-
-```
-dependencies {
-
-....
-
-def room_version = "2.2.5"
-
-  implementation "androidx.room:room-runtime:$room_version"
-  kapt "androidx.room:room-compiler:$room_version"
-
-  // optional - Kotlin Extensions and Coroutines support for Room
-  implementation "androidx.room:room-ktx:$room_version"
-  
-}
-  ```
-<sub>Up-To-Date Version-Number @ [Android Room Developer](https://developer.android.com/topic/libraries/architecture/room)</sub>
-
-1.2) Add the following line on top of build.gradle (App):
-```
-apply plugin: 'kotlin-kapt'
-```
-### 2) Create Data Class Voc.kt with @Entity Annotation
-```
-@Entity
-data class Voc(
-      @PrimaryKey(autoGenerate = true) var id:Long,
-      var nativeWord:String,
-      var foreignWord:String,
-      var date:String,
-      var status:Int)
-```
-### 3) Create the Data Access Object as Interface with @Dao Annotation
-```
-@Dao
-interface VocDao
-{
-    @Insert
-    suspend fun insert(voc:Voc)
-    
-    @Delete
-    suspend fun delete(voc:Voc)
-    
-    @Update
-    suspend fun update(voc:Voc)
-    
-    @Query("SELECT * FROM Voc WHERE id = :vocId")
-    suspend fun getVocById(vocId:Long):Voc
-    
-    @Query("SELECT * FROM Voc")
-    suspend fun getVocList():List<Voc>
-
-    @Query("SELECT * FROM Voc")
-    fun getLiveDataVocList():LiveData<List<Voc>>
-}
-```
-### 4) Create the VocDataBase.kt
-```
-@Database(entities = [Voc::class],version = 1, exportSchema = false)
-abstract class VocDataBase():RoomDatabase()
-{
-    abstract val vocDao:VocDao
-    
-    companion object{
-        
-        @Volatile
-        private var INSTANCE:VocDataBase? = null
-        
-        fun createInstance(application: Application):VocDataBase
-        {
-            synchronized(this)
-            {
-                var instance = INSTANCE
-                if(instance == null)
-                {
-                    instance = Room.databaseBuilder(
-                        application.applicationContext,
-                        VocDataBase::class.java,
-                        "voc_database")
-                        .fallbackToDestructiveMigration()
-                        .build()
-                }                
-                return instance
-            }
-        }
-    }
-}
-```
-
+### 1) Create a simple Repository
