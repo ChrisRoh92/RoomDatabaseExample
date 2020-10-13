@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.example.roomdatabaseexample.R
 
@@ -20,6 +22,9 @@ class MainFragment : Fragment() {
     private lateinit var rv:RecyclerView
     private lateinit var adapter:VocListAdapter
 
+    // MainViewModel:
+    private lateinit var mainViewModel: MainViewModel
+
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
@@ -33,13 +38,16 @@ class MainFragment : Fragment() {
         rootView = view
 
         initRecyclerView()
+        mainViewModel = ViewModelProvider(requireActivity(),MainViewModelFactory(requireActivity().application)).get(MainViewModel::class.java)
+        mainViewModel.getLiveVocList().observe(viewLifecycleOwner, Observer { items ->
+            adapter.updateContent(ArrayList(items))
+        })
     }
 
     private fun initRecyclerView()
     {
         rv = rootView.findViewById(R.id.main_rv)
-        val content = ArrayList<String>(List(25) {""})
-        adapter = VocListAdapter(content)
+        adapter = VocListAdapter(ArrayList())
         rv.adapter = adapter
     }
 }

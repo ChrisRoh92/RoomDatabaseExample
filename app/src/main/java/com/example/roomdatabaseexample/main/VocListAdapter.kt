@@ -7,8 +7,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.roomdatabaseexample.R
+import com.example.roomdatabaseexample.repository.database.Voc
 
-class VocListAdapter(var content:ArrayList<String>):RecyclerView.Adapter<VocListAdapter.ViewHolder>()
+class VocListAdapter(var content:ArrayList<Voc>):RecyclerView.Adapter<VocListAdapter.ViewHolder>()
 {
     // Array with the different status drawables:
     private val statusDrawables = arrayOf(R.drawable.ic_open,R.drawable.ic_work,R.drawable.ic_done)
@@ -23,7 +24,10 @@ class VocListAdapter(var content:ArrayList<String>):RecyclerView.Adapter<VocList
     }
 
     override fun onBindViewHolder(holder: VocListAdapter.ViewHolder, position: Int) {
-
+        val voc = content[position]
+        holder.tvMain.text = voc.foreignWord
+        holder.tvSub.text = voc.nativeWord
+        holder.image.setImageResource(statusDrawables[voc.status])
     }
 
     class ViewHolder(itemView: View):RecyclerView.ViewHolder(itemView)
@@ -31,6 +35,12 @@ class VocListAdapter(var content:ArrayList<String>):RecyclerView.Adapter<VocList
         val tvMain:TextView = itemView.findViewById(R.id.item_main)
         val tvSub:TextView = itemView.findViewById(R.id.item_sub)
         val image:ImageView = itemView.findViewById(R.id.item_image)
+    }
+
+    fun updateContent(content:ArrayList<Voc>)
+    {
+        this.content = content
+        notifyDataSetChanged()
     }
 
 }
