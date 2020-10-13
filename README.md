@@ -1,10 +1,102 @@
-# RoomDatabaseExample - Part 1
+# RoomDatabaseExample - Part 2
 
-#### Tasks of this Part
-- Add RecyclerView to fragment_main.xml
-- Create item_voc.xml as childlayout for the RecyclerView
-- Create the VocListAdapter (RecyclerView.Adapter) for all available Vocabularies
-- Implement the RecyclerView in MainFragment.kt
+## Tasks
+1) Add the Gradle Dependencies
 
-#### How the App Should look now
-<img src="https://github.com/ChrisRoh92/RoomDatabaseExample/blob/Part_1/screenshot/Screenshot_1602587452.png?raw=true" width="250">
+2) Create the Voc Entity Class
+
+3) Create the Data Access Object (DAO)
+
+4) Create the VocDataBase Class
+## Solution
+### 1) Add Gradle Dependencies:
+1.1) Add the following code snippets to the **dependencies {...}** Field
+
+```
+dependencies {
+
+....
+
+def room_version = "2.2.5"
+
+  implementation "androidx.room:room-runtime:$room_version"
+  kapt "androidx.room:room-compiler:$room_version"
+
+  // optional - Kotlin Extensions and Coroutines support for Room
+  implementation "androidx.room:room-ktx:$room_version"
+  
+}
+  ```
+<sub>Up-To-Date Version-Number @ [Android Room Developer](https://developer.android.com/topic/libraries/architecture/room)</sub>
+
+1.2) Add the following line on top of build.gradle (App):
+```
+apply plugin: 'kotlin-kapt'
+```
+### 2) Create Data Class Voc.kt with @Entity Annotation
+```
+@Entity
+data class Voc(
+      @PrimaryKey(autoGenerate = true) var id:Long,
+      var nativeWord:String,
+      var foreignWord:String,
+      var date:String,
+      var status:Int)
+```
+### 3) Create the Data Access Object as Interface with @Dao Annotation
+```
+@Dao
+interface VocDao
+{
+    @Insert
+    suspend fun insert(voc:Voc)
+    
+    @Delete
+    suspend fun delete(voc:Voc)
+    
+    @Update
+    suspend fun update(voc:Voc)
+    
+    @Query("SELECT * FROM Voc WHERE id = :vocId")
+    suspend fun getVocById(vocId:Long):Voc
+    
+    @Query("SELECT * FROM Voc")
+    suspend fun getVocList():List<Voc>
+
+    @Query("SELECT * FROM Voc")
+    fun getLiveDataVocList():LiveData<List<Voc>>
+}
+```
+### 4) Create the VocDataBase.kt
+```
+@Database(entities = [Voc::class],version = 1, exportSchema = false)
+abstract class VocDataBase():RoomDatabase()
+{
+    abstract val vocDao:VocDao
+    
+    companion object{
+        
+        @Volatile
+        private var INSTANCE:VocDataBase? = null
+        
+        fun createInstance(application: Application):VocDataBase
+        {
+            synchronized(this)
+            {
+                var instance = INSTANCE
+                if(instance == null)
+                {
+                    instance = Room.databaseBuilder(
+                        application.applicationContext,
+                        VocDataBase::class.java,
+                        "voc_database")
+                        .fallbackToDestructiveMigration()
+                        .build()
+                }                
+                return instance
+            }
+        }
+    }
+}
+```
+
