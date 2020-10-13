@@ -5,15 +5,17 @@
 
     1.1) Modify the **style.xml**
 
-    1.2) Create layout file - **dialog_input.xml**
+    1.2) Create layout file - **dialog_input.xml** like the following example
+    
+    <img src="https://github.com/ChrisRoh92/RoomDatabaseExample/blob/Part_4/screenshot/InputDialog.PNG?raw=true" width=400>
     
     1.3) Create DialogFragment() - **DialogInput.kt**
     
     1.4) Save User Input to MainViewModel with fun **insert(voc:Voc)**   
 
-Build the Dialog like this screenshot:
 
-<img src="https://github.com/ChrisRoh92/RoomDatabaseExample/blob/Part_4/screenshot/InputDialog.PNG?raw=true" width=400>
+
+
 
 
 2) Register Observer on the VocList LiveData and Update VocListAdapter
