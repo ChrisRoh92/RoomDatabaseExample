@@ -11,6 +11,14 @@
     
     1.4) Save User Input to MainViewModel with fun **insert(voc:Voc)**
 
-2) Register Observer on the VocList LiveData
+2) Register Observer on the VocList LiveData and Update VocListAdapter
+    
+    2.1) Create MainViewModel Instance
+    
+    2.2) Update VocListAdapter with method **fun updateContent(..)** and change ArrayList Type from **String** to **Voc**
+    
+    2.3) Override ***OnBindViewHolder(...)*** @ **VocListAdapter.kt**
+    
+    2.4) Implement Observer
 
 ## Solution
