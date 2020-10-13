@@ -1,4 +1,6 @@
 # RoomDatabaseExample - Part 2
+## Instructions
+If you want to do this Part of the Room Database Tutorial, beginn with the Branch **Part_1** and do the tasks, given in the section below.
 
 ## Tasks
 1) Add the Gradle Dependencies
