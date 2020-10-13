@@ -33,7 +33,7 @@ def room_version = "2.2.5"
 ```
 apply plugin: 'kotlin-kapt'
 ```
-### 2) Create Data Class Voc with @Entity Annotation
+### 2) Create Data Class Voc.kt with @Entity Annotation
 ```
 @Entity
 data class Voc(
@@ -43,4 +43,28 @@ data class Voc(
       var date:String,
       var status:Int)
 ```
+### 3) Create the Data Access Object as Interface with @Dao Annotation
+```
+@Dao
+interface VocDao
+{
+    @Insert
+    suspend fun insert(voc:Voc)
+    
+    @Delete
+    suspend fun delete(voc:Voc)
+    
+    @Update
+    suspend fun update(voc:Voc)
+    
+    @Query("SELECT * FROM Voc WHERE id = :vocId")
+    suspend fun getVocById(vocId:Long):Voc
+    
+    @Query("SELECT * FROM Voc")
+    suspend fun getVocList():List<Voc>
 
+    @Query("SELECT * FROM Voc")
+    fun getLiveDataVocList():LiveData<List<Voc>>
+}
+```
+### 4) Create the VocDataBase.kt
