@@ -1,4 +1,6 @@
 # RoomDatabaseExample - Part 3
+## Instructions
+If you want to do this Part of the Room Database Tutorial, beginn with the Branch **Part_2** and do the tasks, given in the section below.
 
 ## Tasks
 1) Create a Repository
