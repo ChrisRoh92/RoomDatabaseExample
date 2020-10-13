@@ -27,7 +27,7 @@ def room_version = "2.2.5"
   
 }
   ```
-Up-To-Date Version-Number @ [Android Room Developer](https://developer.android.com/topic/libraries/architecture/room)
+<sub>Up-To-Date Version-Number @ [Android Room Developer](https://developer.android.com/topic/libraries/architecture/room)</sub>
 
 1.2) Add the following line on top of build.gradle (App):
 ```
