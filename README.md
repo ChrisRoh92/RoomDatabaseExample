@@ -1,11 +1,11 @@
-# RoomDatabaseExample - Part 3
+# RoomDatabaseExample - Part 4
 
 ## Tasks
-1) Create a Repository
+1) Create a simple Input Dialog
 
-2) Create the MainViewModel.kt
+2) Register Observer on the VocList LiveData
 
-3) Create the MainViewModelFactory
+3) 
 
 4) Implement the Methods to interact with Room @ MainViewModel.kt
 ## Solution
