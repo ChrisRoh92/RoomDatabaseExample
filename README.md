@@ -1,15 +1,22 @@
 # RoomDatabaseExample - Part 2
 
-#### TO DO
-1. asdasd
+## Tasks
 
-        private fun initRecyclerView(){
-        rv = rootView.findViewById(R.id.main_rv)
-        val content = ArrayList<String>(List(25) {""})
-        adapter = VocListAdapter(content)
-        rv.adapter = adapter
-        }
 
-2. asdasd
-3. asdasd
+#### 1) Add Gradle Dependencies:
+```
+def room_version = "2.2.5"
+
+  implementation "androidx.room:room-runtime:$room_version"
+  kapt "androidx.room:room-compiler:$room_version"
+
+  // optional - Kotlin Extensions and Coroutines support for Room
+  implementation "androidx.room:room-ktx:$room_version"
+  ```
+  Up-To-Date Version-Number @ [Android Room Developer](https://developer.android.com/topic/libraries/architecture/room)
+  ___
+#### 2) Create Data Class Voc with @Entity Annotation
+```
+        asdasd
+```
 
