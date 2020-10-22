@@ -81,6 +81,5 @@ class DialogInput():DialogFragment()
         {
             Toast.makeText(requireContext(),"Please insert data in both Fields!",Toast.LENGTH_SHORT).show()
         }
-
     }
 }
