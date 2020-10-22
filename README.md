@@ -154,3 +154,5 @@ Now, change to the code view of **activity_main.xml** and update the **FloatingA
         app:srcCompat="@drawable/ic_add" />
 ```
 If you named the icon different, like in the code snippet above, just use your name for the *add icon*.
+
+Now, you can run the app the first time. Have fun and see you in the next Part :)
