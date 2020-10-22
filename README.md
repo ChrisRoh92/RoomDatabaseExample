@@ -3,7 +3,7 @@ Hello and welcome to this **Android Room Tutorial** from **CodingWithChris**. In
 
 I created for each part of this series a branch, so you do not have to start from the very beginning. In my Videos, i will explain, how you can use this repository. In the follwing, you get the Tasks, which are already implemented in the different branches:
 ___
-## Branch: Master
+## Branch: Init_Branch
 ### Initial File of the Video Series :
 This will be the start of the whole video series. In this branch, i just create a simple project in Android Studio.
 
