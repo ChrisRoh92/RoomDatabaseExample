@@ -10,7 +10,7 @@ If you want to do this Part of the Room Database Tutorial, beginn with the Branc
   
     1.2) Implement the Interface in **MainFragment.kt**
   
-    1.3) Call the **InputDialog.kt** if user want to change the data of the entry
+    1.3) Update and call the **InputDialog.kt** if user want to change the data of the entry
   
     1.4) Create an OnConflictStrategy for **fun insert(voc:Voc)** in the **VocDao.kt**
 
