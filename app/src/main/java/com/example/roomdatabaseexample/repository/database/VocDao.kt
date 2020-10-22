@@ -6,7 +6,7 @@ import androidx.room.*
 @Dao
 interface VocDao
 {
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(voc:Voc)
 
     @Delete

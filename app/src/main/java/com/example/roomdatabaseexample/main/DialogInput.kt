@@ -8,9 +8,10 @@ import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.roomdatabaseexample.R
+import com.example.roomdatabaseexample.repository.database.Voc
 import com.google.android.material.textfield.TextInputLayout
 
-class DialogInput():DialogFragment()
+class DialogInput(var voc: Voc? = null):DialogFragment()
 {
 
     private lateinit var rootView:View
@@ -52,6 +53,14 @@ class DialogInput():DialogFragment()
         mainViewModel = ViewModelProvider(requireActivity(),MainViewModelFactory(requireActivity().application)).get(MainViewModel::class.java)
         initButtons()
         initEditTexts()
+
+        // Check if voc is not null:
+        if(voc != null)
+        {
+            // setText from the passed voc object
+            etForeign.editText?.setText(voc?.foreignWord)
+            etNative.editText?.setText(voc?.nativeWord)
+        }
     }
 
     private fun initButtons()
@@ -73,8 +82,19 @@ class DialogInput():DialogFragment()
     {
         if(!TextUtils.isEmpty(etForeign.editText?.text.toString()) && !TextUtils.isEmpty(etNative.editText?.text.toString()))
         {
-            mainViewModel.insert(etNative.editText?.text.toString(),etForeign.editText?.text.toString())
-            Toast.makeText(requireContext(),"Voc inserted in Database",Toast.LENGTH_SHORT).show()
+            if(voc != null)
+            {
+                voc?.nativeWord = etNative.editText?.text.toString()
+                voc?.foreignWord = etForeign.editText?.text.toString()
+                mainViewModel.update(voc!!)
+                Toast.makeText(requireContext(),"Voc updated in Database",Toast.LENGTH_SHORT).show()
+            }
+            else
+            {
+                mainViewModel.insert(etNative.editText?.text.toString(),etForeign.editText?.text.toString())
+                Toast.makeText(requireContext(),"Voc inserted in Database",Toast.LENGTH_SHORT).show()
+            }
+
             dismiss()
         }
         else
