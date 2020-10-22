@@ -3,19 +3,17 @@
 If you want to do this Part of the Room Database Tutorial, beginn with the Branch **Master** and do the tasks, given in the section below.
 
 ## Tasks of this Part
-- Add RecyclerView to fragment_main.xml
-- Create item_voc.xml as childlayout for the RecyclerView
-- Create the VocListAdapter (RecyclerView.Adapter) for all available Vocabularies
-- Implement the RecyclerView in MainFragment.kt
+1) Add RecyclerView to fragment_main.xml
+2) Create item_voc.xml as childlayout for the RecyclerView
+3) Create the VocListAdapter (RecyclerView.Adapter) for all available Vocabularies
+4) Implement the RecyclerView in MainFragment.kt
 
-#### How the App Should look now
+#### How the Layout of the MainFragment should look like
 <img src="https://github.com/ChrisRoh92/RoomDatabaseExample/blob/Part_1/screenshot/Screenshot_1602587452.png?raw=true" width="250">
 
 ## Solution
 1) Add RecyclerView to **fragment_main.xml**
-<details>
-  <summary>Click to expand!</summary>
-  
+
 ```
 <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/main_rv"
@@ -28,7 +26,6 @@ If you want to do this Part of the Room Database Tutorial, beginn with the Branc
         app:layout_constraintTop_toTopOf="parent"
         />
 ```
-</details>
 
 
 2) Create **item_voc.xml** as child layout for the RecyclerView
