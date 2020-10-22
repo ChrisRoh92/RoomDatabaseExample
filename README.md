@@ -7,12 +7,13 @@ If you want to do this Part of the Room Database Tutorial, beginn with the Branc
 2) Create item_voc.xml as childlayout for the RecyclerView
 3) Create the VocListAdapter (RecyclerView.Adapter) for all available Vocabularies
 4) Implement the RecyclerView in MainFragment.kt
+5) Create a new Drawable for the FloatingActionButton
 
 #### How the Layout of the MainFragment should look like
 <img src="https://github.com/ChrisRoh92/RoomDatabaseExample/blob/Part_1/screenshot/Screenshot_1602587452.png?raw=true" width="250">
 
 ## Solution
-1) Add RecyclerView to **fragment_main.xml**
+### 1) Add RecyclerView to **fragment_main.xml**
 
 ```
 <androidx.recyclerview.widget.RecyclerView
@@ -28,7 +29,7 @@ If you want to do this Part of the Room Database Tutorial, beginn with the Branc
 ```
 
 
-2) Create **item_voc.xml** as child layout for the RecyclerView
+### 2) Create **item_voc.xml** as child layout for the RecyclerView
 <details>
   <summary>Click to see the full XML Code for the item_voc.xml</summary>
   
@@ -92,7 +93,7 @@ If you want to do this Part of the Room Database Tutorial, beginn with the Branc
 ```
 </details>
 
-3) Create the **VocListAdapter.kt** as RecyclerViewAdapter
+### 3) Create the **VocListAdapter.kt** as RecyclerViewAdapter
 ```
 class VocListAdapter(var content:ArrayList<String>):RecyclerView.Adapter<VocListAdapter.ViewHolder>()
 {
@@ -121,3 +122,35 @@ class VocListAdapter(var content:ArrayList<String>):RecyclerView.Adapter<VocList
 
 }
 ```
+### 4) Implement the RecyclerView in MainFragment.kt
+In the next step, we implement the RecyclerView within the **MainFragment.kt**. Therefore we create the method **initRecyclerView(...)**. To test the appearance of the RecyclerView, we create an empty dummy Arraylist.
+On the top, we create global variables for the RecyclerView and the VocListAdapter:
+```
+private lateinit var rv:RecyclerView
+private lateinit var adapter:VocListAdapter
+```
+Then, we create the already mentioned **initRecyclerView(...)**, which will be called on the **OnViewCreated(...)** method:
+```
+private fun initRecyclerView()
+{
+        rv = rootView.findViewById(R.id.main_rv)
+        val content = ArrayList<String>(List(25) {""})
+        adapter = VocListAdapter(content)
+        rv.adapter = adapter
+}
+```
+Before we test the app, we want to change the icon in the FloatingActionButton:
+### 5) Create a new Drawable for the FloatingActionButton
+First, we have to create a Drawable. Therefore you have to right click on the *res* folder. Then click on *New* right on the top and the click on *Vector Asset*. Then the **Asset Studio** window appears. In this window, you have to click on the Button, on the right of the text *Clip Art:*. A new menu, *Select Icon*, appears, where you can search for icons. We want the *add* icon. So type in the SearchView, right on the upper left corner, *add* and select the icon and click afterwards on *OK*, on the menu (Lower left). In the *Asset Studio* you click *next* and then on *finish*. Now, you should have created the **Add Icon** succesfully.
+
+Now, change to the code view of **activity_main.xml** and update the **FloatingActionButton** block up to:
+```
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        app:srcCompat="@drawable/ic_add" />
+```
+If you named the icon different, like in the code snippet above, just use your name for the *add icon*.
