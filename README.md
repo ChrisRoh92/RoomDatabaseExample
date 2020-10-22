@@ -1,6 +1,6 @@
 # RoomDatabaseExample - Part 1
 ## Instructions
-If you want to do this Part of the Room Database Tutorial, beginn with the Branch **Master** and do the tasks, given in the section below.
+If you want to do this Part of the Room Database Tutorial, beginn with the Branch **Init_Branch** and do the tasks, given in the section below.
 
 ## Tasks of this Part
 1) Add RecyclerView to fragment_main.xml
