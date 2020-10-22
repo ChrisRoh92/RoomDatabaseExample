@@ -10,7 +10,7 @@ If you want to do this Part of the Room Database Tutorial, beginn with the Branc
 5) Create a new Drawable for the FloatingActionButton
 
 #### How the Layout of the MainFragment should look like
-<img src="https://github.com/ChrisRoh92/RoomDatabaseExample/blob/Part_1/screenshot/Screenshot_1602587452.png?raw=true" width="250">
+<img src="https://github.com/ChrisRoh92/RoomDatabaseExample/blob/Part_1/screenshot/MainFragment_Preview.png?raw=true" width="250">
 
 ## Solution
 ### 1) Add RecyclerView to **fragment_main.xml**
