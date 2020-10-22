@@ -18,10 +18,6 @@ If you want to do this Part of the Room Database Tutorial, beginn with the Branc
     1.5) Connect the FloatingActionButton @ **MainActivity.kt** with the **DialogInput.kt**
 
 
-
-
-
-
 2) Register Observer on the VocList LiveData and Update VocListAdapter
     
     2.1) Create MainViewModel Instance
