@@ -20,10 +20,11 @@ If you want to do this Part of the Room Database Tutorial, beginn with the Branc
 
     3.1) Create an Interface OnItemLongClickListener
   
-    3.2) Create a simple AlarmDialog to confirm the delete action
+    3.2) Create a simple AlarmDialog to confirm the delete action in **MainFragment.kt** and call the **fun delete(voc:Voc)** method to remove the entry, if user confirm delete  action
+    
+    3.3) Implement the Interface in **MainFragment.kt** and call the AlarmDialog to confirm the delete action
   
-    3.3) Call the **fun delete(voc:Voc)** method to remove the entry
-  
+     
     
 # Solution
 ## 1) Set clickable Background for the Item Layout **item_voc.xml**
@@ -143,3 +144,87 @@ private fun saveData()
   }
 }
 ```
+## 3) Create an OnLongClickListener for each item of the RecyclerView - Delete an entry
+Similar to 2), we now want to create an OnItemLongClickListener, so we can detect, if the user wants to delete an entry: Therefore we follow mostly the same steps, as in **2.1)** already shown
+
+### 3.1) Create an Interface OnItemLongClickListener
+First, you have to create a variable for the Interface **OnItemLongClickListener** 
+
+```
+private lateinit var mItemLongListener:OnItemLongClickListener
+```
+
+Then, you have to create the Interface:
+```
+interface OnItemLongClickListener
+{
+  fun setOnItemLongClickListener(pos:Int)
+}
+fun setOnItemLongClickListener(mItemLongListener:OnItemLongClickListener)
+{
+  this.mItemLongListener = mItemLongListener
+}
+```
+Now, we have to give the ViewHolder this interface. Therefore, we change the **onCreateViewHolder(...)** method to:
+```
+override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VocListAdapter.ViewHolder
+{
+  val view = LayoutInflater.from(parent.context).inflate(R.layout.item_voc,parent,false)
+  return ViewHolder(view,mItemListener,mItemLongListener)
+}
+```
+So the ViewHolder gets the view itself, the OnItemClickListener for showing/updating an entry, and the OnItemLongClickListener to delete an entry on a long click. Therefore, you now have to modify the primary constructor of the ViewHolder, so it expects an OnItemLongClicklistener. Additional, you have to create an OnLongClickListener within the **init{...}** block, where you call the **setOnItemLongClickListener(...)*** methode, which get also the current adapterPosition:
+```
+class ViewHolder(itemView: View,mItemListener:OnItemClickListener,mItemLongListener:OnItemLongClickListener):RecyclerView.ViewHolder(itemView)
+{
+  val tvMain:TextView = itemView.findViewById(R.id.item_main)
+  val tvSub:TextView = itemView.findViewById(R.id.item_sub)
+  val image:ImageView = itemView.findViewById(R.id.item_image)
+
+  init {
+    // Implement simple OnClickListener for each Entry
+      itemView.setOnClickListener {
+        mItemListener?.setOnItemClickListener(adapterPosition)
+        }
+
+        // Implement simple OnLongClickListener for each Entry:
+        itemView.setOnLongClickListener {
+          mItemLongListener?.setOnItemLongClickListener(adapterPosition)
+          true
+        }
+    }
+}
+```
+
+### 3.2) Create a simple AlarmDialog to confirm the delete action in **MainFragment.kt**
+To prevent the user of accidentally deleting an entry, we want the user to confirm the delete action with a simple AlertDialg. Therefore we create the method **fun startAlarmDialog(voc:Voc)** which gets the clicked voc object. So in the case, the user wants to remove the voc from the database, we call the **remove(voc:Voc)** method in the **mainViewModel**. But first, we create a simple AlertDialog, like shown below:
+```
+private fun startAlarmDialog(voc: Voc)
+{
+  val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
+  builder.apply {
+    setMessage("Warning - Entry will be deleted")
+    setPositiveButton("Ok", DialogInterface.OnClickListener { dialog, id ->
+      Toast.makeText(requireContext(),"${voc.foreignWord} deleted",Toast.LENGTH_SHORT).show()
+      mainViewModel.delete(voc)
+    })
+    setNegativeButton("Abort", DialogInterface.OnClickListener { dialog, id ->
+      dialog.dismiss()
+    })
+  }
+  val dialog = builder.create()
+  dialog.show()
+}
+```
+To create a simple AlertDialog, first we have to create an AlertDialogBuilder and pass a context, which we will get with **requireContext()**. Then we modify the builder, so we can set a title and the positiv and negativ button. If the user clicks the positiv button, we will delete the clicked item from the database. Otherwise, we just dismiss the AlertDialog with **dialog.dismiss()**. At the end we create the dialog with **builder.create()** and call **dialog.show()**, so the user see the dialog.
+
+### 3.3) Implement the Interface in **MainFragment.kt** and call the AlarmDialog to confirm the delete action
+Similar to **2.2)** we implement the OnItemLongClick Interface within the **initRecyclerView()** method in MainFragment.kt:
+```
+adapter.setOnItemLongClickListener(object:VocListAdapter.OnItemLongClickListener{
+  override fun setOnItemLongClickListener(pos: Int) {
+    startAlarmDialog(adapter.content[pos])
+  }
+})
+```
+Now you can start the emulator and test the new functions. Have Fun!
