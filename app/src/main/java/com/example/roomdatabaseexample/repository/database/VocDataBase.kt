@@ -28,6 +28,7 @@ abstract class VocDataBase():RoomDatabase()
                         "voc_database")
                         .fallbackToDestructiveMigration()
                         .build()
+                    INSTANCE = instance
                 }
                 return instance
             }
